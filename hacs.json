@@ -1,0 +1,6 @@
+{
+  "name": "Clock Pro Card",
+  "render_readme": true,
+  "filename": "clockpro-card.js",
+  "homeassistant": "2023.0.0"
+}

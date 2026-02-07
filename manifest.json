@@ -1,0 +1,6 @@
+{
+  "name": "Clock Pro Card",
+  "content_in_root": false,
+  "filename": "clockpro-card.js",
+  "render_mode": "ts"
+}
