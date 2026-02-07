@@ -12,6 +12,8 @@
     },
     pro_icon: false,
     pro_icon_pack: "",
+    sun_entity: "sun.sun",
+
     background: {
       mode: "transparent", // transparent | color
       color: "rgba(0,0,0,0)",
@@ -118,6 +120,8 @@
       sunny: "Sunny",
       cloudy: "Cloudy",
       partlycloudy: "Partly Cloudy",
+      "partlycloudy-night": "Partly Cloudy",
+
       rainy: "Rain",
       pouring: "Heavy Rain",
       lightning: "Thunderstorm",
@@ -145,6 +149,7 @@
       sunny: "mdi:weather-sunny",
       cloudy: "mdi:weather-cloudy",
       partlycloudy: "mdi:weather-partly-cloudy",
+      "partlycloudy-night": "mdi:weather-night-partly-cloudy",
       rainy: "mdi:weather-rainy",
       pouring: "mdi:weather-pouring",
       lightning: "mdi:weather-lightning",
@@ -226,6 +231,7 @@
         // Required
         weather_entity: "weather.home",
         location_entity: "zone.home",
+        sun_entity: "sun.sun",
 
         // Card sizing
         card: {
@@ -388,7 +394,7 @@
 
       // weather
       const wEnt = hass?.states?.[cfg.weather_entity];
-      const condition = wEnt?.state || "cloudy";
+      const rawCondition = wEnt?.state || "cloudy";
       const temp =
         wEnt?.attributes?.temperature ??
         wEnt?.attributes?.temp ??
@@ -399,7 +405,20 @@
           ? "--"
           : `${Math.round(Number(temp))}°C`;
 
-      const condText = conditionLabel(condition);
+      // Day/Night detection (optional)
+      const sunEntId = cfg.sun_entity || DEFAULT_CONFIG.sun_entity;
+      const sunState = sunEntId ? (hass?.states?.[sunEntId]?.state || "") : "";
+      const isNight = sunState === "below_horizon";
+
+      // Normalize condition for ICON selection (text stays rawCondition)
+      let iconCondition = rawCondition;
+      if (isNight) {
+        const c = String(rawCondition || "").toLowerCase();
+        if (c === "clear" || c === "sunny") iconCondition = "clear-night";
+        else if (c === "partlycloudy") iconCondition = "partlycloudy-night";
+      }
+
+      const condText = conditionLabel(rawCondition);
 
       // pro icon pack (optional)
       const useProIcon = cfg.pro_icon === true && String(cfg.pro_icon_pack || "").trim();
@@ -407,7 +426,7 @@
 
       const proSvg =
         pack && typeof pack === "object"
-          ? (pack[condition] || pack[String(condition || "").toLowerCase()] || "")
+          ? (pack[iconCondition] || pack[String(iconCondition || "").toLowerCase()] || "")
           : "";
 
       // location
@@ -422,7 +441,7 @@
       const iconName =
         iconCfg.source === "default"
           ? (iconCfg.default_icon || DEFAULT_CONFIG.elements.icon.default_icon)
-          : conditionIcon(condition);
+          : conditionIcon(iconCondition);
 
       // styles
       const bg = cfg.background || {};
