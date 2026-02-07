@@ -594,13 +594,19 @@
     }
   }
 
-  customElements.define("clockpro-card", WeatherClockCard);
+  // ============================================================================
+  // Custom Element Registration - SIMPLE & COMPATIBLE (OverlayPro style)
+  // ============================================================================
+  if (!customElements.get("clockpro-card")) {
+    customElements.define("clockpro-card", WeatherClockCard);
 
-  // Card picker info (optional)
-  window.customCards = window.customCards || [];
-  window.customCards.push({
-    type: "clockpro-card",
-    name: "Clock Pro Card",
-    description: "Absolute-positioned clock + weather card",
-  });
+    // Card picker info (optional)
+    window.customCards = window.customCards || [];
+    window.customCards.push({
+      type: "clockpro-card",
+      name: "Clock Pro Card",
+      preview: true,
+      description: "Absolute-positioned clock + weather card",
+    });
+  }
 })();
