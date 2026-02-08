@@ -12,6 +12,7 @@
     },
     pro_icon: false,
     pro_icon_pack: "",
+    pro_icons_folder: "svg",
     sun_entity: "sun.sun",
 
     background: {
@@ -237,7 +238,7 @@
         // If pro_icon_pack does NOT start with "/", it will be loaded from the card's folder:
         // /local/community/clockpro-card/<pro_icon_pack>
         pro_icon_pack: "icon-pack.js",
-        pro_icons_folder: "icons",
+        pro_icons_folder: "",
 
         // Card sizing
         card: {
@@ -328,6 +329,28 @@
       };
     }
 
+    _resolveProIconsBase() {
+      const cfg = this._config || DEFAULT_CONFIG;
+
+      const folderRaw = String(cfg.pro_icons_folder ?? DEFAULT_CONFIG.pro_icons_folder ?? "icons").trim();
+      if (!folderRaw) return "/local/community/clockpro-card/icons/";
+
+      const ensureSlash = (s) => (s.endsWith("/") ? s : s + "/");
+
+      // Absolute URL folder
+      if (/^https?:\/\//i.test(folderRaw)) return ensureSlash(folderRaw);
+
+      // Absolute HA path folder (ex: /local/..., /hacsfiles/..., etc.)
+      if (folderRaw.startsWith("/")) return ensureSlash(folderRaw);
+
+      // Relative folder -> resolve against this card file location
+      const scriptUrl =
+        (import.meta && import.meta.url) ||
+        (document.currentScript && document.currentScript.src) ||
+        "";
+      const base = scriptUrl ? scriptUrl.replace(/[^/]*$/, "") : "/local/community/clockpro-card/";
+      return ensureSlash(`${base}${folderRaw}`);
+    }
 
     _loadProIconPack() {
       const cfg = this._config;
@@ -445,10 +468,32 @@
       const useProIcon = cfg.pro_icon === true && String(cfg.pro_icon_pack || "").trim();
       const pack = useProIcon ? await this._loadProIconPack() : null;
 
-      const proSvg =
+      const proVal =
         pack && typeof pack === "object"
           ? (pack[iconCondition] || pack[String(iconCondition || "").toLowerCase()] || "")
           : "";
+
+      // proVal can be:
+      // 1) raw HTML (legacy packs) -> contains "<"
+      // 2) filename like "clear-day.svg"
+      // 3) absolute url/path like "/local/.../x.svg" or "https://..."
+      const iconsBase = this._resolveProIconsBase();
+
+      let proIconHtml = "";
+      if (typeof proVal === "string" && proVal.trim()) {
+        const v = proVal.trim();
+
+        if (v.includes("<")) {
+          // legacy HTML pack support
+          proIconHtml = v;
+        } else {
+          const isAbsHttp = /^https?:\/\//i.test(v);
+          const isAbsPath = v.startsWith("/");
+
+          const src = isAbsHttp || isAbsPath ? v : `${iconsBase}${v}`;
+          proIconHtml = `<img src="${src}" style="width:100%;height:100%;display:block;" />`;
+        }
+      }
 
       // location
       const locEnt = hass?.states?.[cfg.location_entity];
@@ -621,8 +666,8 @@
 
           <div class="icon" style="${iconWrapStyle}">
             ${
-              (useProIcon && proSvg)
-                ? `<div class="pro-svg" style="${iconStyle}">${proSvg}</div>`
+              (useProIcon && proIconHtml)
+                ? `<div class="pro-svg" style="${iconStyle}">${proIconHtml}</div>`
                 : `<ha-icon style="${iconStyle}" icon="${iconName}"></ha-icon>`
             }
           </div>

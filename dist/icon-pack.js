@@ -2,7 +2,6 @@
 // Put SVG files into: /config/www/community/clockpro-card/icons/
 // Served as: /local/community/clockpro-card/icons/
 
-const BASE = "/local/community/clockpro-card/icons/";
 
 const MAP = {
   // Day
@@ -52,14 +51,11 @@ const NIGHT_MAP = {
   "unknown-night": "unknown-night.svg",
 };
 
-function img(file) {
-  return `<img src="${BASE}${file}" style="width:100%;height:100%;display:block;" />`;
-}
 
 export default new Proxy({}, {
   get: (_, key) => {
     const k = String(key || "unknown");
     const file = NIGHT_MAP[k] || MAP[k] || MAP.unknown;
-    return img(file);
+    return file;
   }
 });

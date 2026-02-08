@@ -55,15 +55,16 @@ Copy & paste this full config, then edit values to taste:
 
 ```yaml
 type: custom:clockpro-card
-
 weather_entity: weather.home
 location_entity: zone.home
-
-card:
-  height: 220
+sun_entity: sun.sun
 
 pro_icon: true
 pro_icon_pack: icon-pack.js
+pro_icons_folder: your_pack
+
+card:
+  height: 220
 
 background:
   mode: transparent
@@ -225,13 +226,13 @@ This means:
 Create this folder in Home Assistant:
 
 ```
-/config/www/community/clockpro-card/icons/
+/config/www/community/clockpro-card/your_pack/
 ```
 
 This becomes accessible as:
 
 ```
-/local/community/clockpro-card/icons/
+/local/community/clockpro-card/your_pack/
 ```
 
 ---
@@ -286,6 +287,7 @@ sun_entity: sun.sun
 
 pro_icon: true
 pro_icon_pack: icon-pack.js
+pro_icons_folder: your_pack
 ```
 
 ---
