@@ -705,7 +705,7 @@ console.info(
       type: "clockpro-card",
       name: "Clock Pro Card",
       preview: true,
-      description: "Absolute-positioned clock + weather card",
+      description: "Clock Pro Card — Time & Weather Visualization Engine",
     });
   }
 })();
