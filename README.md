@@ -1,5 +1,8 @@
 
-# 📦 ClockPro-Card
+# Clock Pro Card
+
+[![HACS Custom](https://raw.githubusercontent.com/levonisyas/clockpro-card/main/badges/hacs-custom.svg)](https://hacs.xyz/) [![License](https://raw.githubusercontent.com/levonisyas/clockpro-card/main/badges/license.svg)](LICENSE) [![Latest Release](https://img.shields.io/github/v/release/levonisyas/clockpro-card)](https://github.com/levonisyas/clockpro-card/releases)  
+
 
 <img src="https://raw.githubusercontent.com/levonisyas/clockpro-card/main/demo/demo.jpg" width="1200" alt="Overlay Pro Card">
 
