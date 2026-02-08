@@ -232,17 +232,17 @@
         weather_entity: "weather.home",
         location_entity: "zone.home",
         sun_entity: "sun.sun",
+        // Pro icon pack
+        pro_icon: false,
+        // If pro_icon_pack does NOT start with "/", it will be loaded from the card's folder:
+        // /local/community/clockpro-card/<pro_icon_pack>
+        pro_icon_pack: "icon-pack.js",
+        pro_icons_folder: "icons",
 
         // Card sizing
         card: {
           height: 220,
         },
-
-        // Pro icon pack
-        pro_icon: true,
-        // If pro_icon_pack does NOT start with "/", it will be loaded from the card's folder:
-        // /local/community/clockpro-card/<pro_icon_pack>
-        pro_icon_pack: "icon-pack.js",
 
         // Background
         background: {
@@ -255,15 +255,15 @@
         // Elements (absolute positioned)
         elements: {
           time: {
-            pos: { left: 12, top: 0 },
-            font: { size: 86, weight: 650 },
-            letter_spacing: -2,
+            pos: { left: 5, top: 14 },
+            font: { size: 80, weight: 650 },
+            letter_spacing: -1,
 
             // Spacing control:
             // 13 : 58 (but "13" stays tight)
             gaps: {
-              hh_colon: 26,
-              colon_mm: 26,
+              hh_colon: 5,
+              colon_mm: 5,
             },
 
             // Colors:
@@ -275,24 +275,24 @@
           },
 
           date: {
-            pos: { left: 14, bottom: 72 },
-            font: { size: 26, weight: 650 },
+            pos: { left: 14, bottom: 60 },
+            font: { size: 30, weight: 600 },
             letter_spacing: -0.5,
             color: "#111111",
           },
 
           day: {
-            pos: { left: 14, bottom: 20 },
-            font: { size: 40, weight: 750 },
+            pos: { left: 14, bottom: 30 },
+            font: { size: 25, weight: 700 },
             letter_spacing: -0.5,
             color: "#111111",
           },
 
           icon: {
-            pos: { right: 8, top: 0 },
+            pos: { right: 5, top: 0 },
 
             icon: {
-              size: 170,
+              size: 160,
               color: "#111111",
             },
 
@@ -300,8 +300,8 @@
             // (moves the glyph up, scales slightly)
             transform: {
               x: 0,
-              y: -12,
-              scale: 1.12,
+              y: -10,
+              scale: 1,
             },
 
             // Icon source:
@@ -312,15 +312,15 @@
           },
 
           details: {
-            pos: { right: 14, bottom: 68 },
-            font: { size: 22, weight: 650 },
+            pos: { right: 14, bottom: 30 },
+            font: { size: 25, weight: 500 },
             letter_spacing: -0.2,
             color: "#111111",
           },
 
           location: {
-            pos: { right: 14, bottom: 20 },
-            font: { size: 28, weight: 800 },
+            pos: { right: 14, bottom: 5 },
+            font: { size: 20, weight: 500 },
             letter_spacing: -0.2,
             color: "#111111",
           },
@@ -414,8 +414,29 @@
       let iconCondition = rawCondition;
       if (isNight) {
         const c = String(rawCondition || "").toLowerCase();
-        if (c === "clear" || c === "sunny") iconCondition = "clear-night";
-        else if (c === "partlycloudy") iconCondition = "partlycloudy-night";
+
+        // Full Pro: every condition gets a night variant
+        // (icon pack can provide unique SVGs for each one)
+        const nightMap = {
+          clear: "clear-night",
+          sunny: "clear-night",
+          partlycloudy: "partlycloudy-night",
+          cloudy: "cloudy-night",
+          rainy: "rainy-night",
+          pouring: "pouring-night",
+          lightning: "lightning-night",
+          "lightning-rainy": "lightning-rainy-night",
+          fog: "fog-night",
+          hail: "hail-night",
+          snowy: "snowy-night",
+          "snowy-rainy": "snowy-rainy-night",
+          windy: "windy-night",
+          "windy-variant": "windy-variant-night",
+          exceptional: "exceptional-night",
+          unknown: "unknown-night",
+        };
+
+        iconCondition = nightMap[c] || `${c}-night`;
       }
 
       const condText = conditionLabel(rawCondition);
@@ -612,9 +633,23 @@
       `;
     }
   }
+// ============================================================================
+// Overlay Pro Card - Startup Banner (ALWAYS VISIBLE)
+// ============================================================================
 
+const overlayTitle = '  CLOCK[PRO]-CARD ';
+const overlayVersion = '  Version Faz.1    ';
+
+// Longest line width
+const overlayWidth = Math.max(overlayTitle.length, overlayVersion.length);
+
+console.info(
+  `%c${overlayTitle.padEnd(overlayWidth)}\n%c${overlayVersion.padEnd(overlayWidth)}`,
+  'color: cyan; font-weight: bold; background: black',
+  'color: white; font-weight: bold; background: dimgray'
+);
   // ============================================================================
-  // Custom Element Registration - SIMPLE & COMPATIBLE (OverlayPro style)
+  // Custom Element Registration - SIMPLE & COMPATIBLE
   // ============================================================================
   if (!customElements.get("clockpro-card")) {
     customElements.define("clockpro-card", WeatherClockCard);

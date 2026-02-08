@@ -207,6 +207,104 @@ static getStubConfig() {
 
 ---
 
+### 🎨 Pro Icon Pack (SVG Files)
+
+ClockPro supports a **file-based Pro Icon Pack**.
+
+This means:
+
+* You **do NOT** edit card JS
+* You **do NOT** embed SVG strings inside YAML
+* You simply drop your own `.svg` files into a folder
+* ClockPro will load them automatically via `icon-pack.js`
+
+---
+
+#### 1) Create the icons folder
+
+Create this folder in Home Assistant:
+
+```
+/config/www/community/clockpro-card/icons/
+```
+
+This becomes accessible as:
+
+```
+/local/community/clockpro-card/icons/
+```
+
+---
+
+## FULL required SVG list (day + night)
+
+**Day**
+
+* clear-day.svg
+* partlycloudy-day.svg
+* cloudy.svg
+* rain.svg
+* pouring.svg
+* lightning.svg
+* lightning-rainy.svg
+* fog.svg
+* hail.svg
+* snow.svg
+* snowy-rainy.svg
+* windy.svg
+* exceptional.svg
+* unknown.svg
+
+**Night**
+
+* clear-night.svg
+* partlycloudy-night.svg
+* cloudy-night.svg
+* rainy-night.svg
+* pouring-night.svg
+* lightning-night.svg
+* lightning-rainy-night.svg
+* fog-night.svg
+* hail-night.svg
+* snowy-night.svg
+* snowy-rainy-night.svg
+* windy-night.svg
+* exceptional-night.svg
+* unknown-night.svg
+
+If night icons are missing, ClockPro will fallback to the closest day icon.
+
+---
+
+#### 3) Enable Pro Icons in YAML
+
+```yaml
+type: custom:clockpro-card
+weather_entity: weather.home
+location_entity: zone.home
+sun_entity: sun.sun
+
+pro_icon: true
+pro_icon_pack: icon-pack.js
+```
+
+---
+
+### 🌙 Day / Night Support
+
+ClockPro automatically detects night mode using:
+
+```yaml
+sun_entity: sun.sun
+```
+
+When the sun is below the horizon:
+
+* `clear` → `clear-night`
+* `partlycloudy` → `partlycloudy-night`
+
+---
+
 ## 🎨 Customization Guide
 
 You can tune every element:
