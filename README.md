@@ -1,10 +1,9 @@
 
 # Clock Pro Card — Time & Weather Visualization Engine
 
-[![HACS Custom](https://raw.githubusercontent.com/levonisyas/clockpro-card/main/badges/hacs-custom.svg)](https://hacs.xyz/) [![License](https://raw.githubusercontent.com/levonisyas/clockpro-card/main/badges/license.svg)](LICENSE) [![Latest Release](https://img.shields.io/github/v/release/levonisyas/clockpro-card)](https://github.com/levonisyas/clockpro-card/releases)  
+![HACS Custom](https://img.shields.io/badge/HACS-Custom-41BDF5.svg?logo=homeassistant&logoColor=white) ![License MIT](https://img.shields.io/badge/License-MIT-97CA00.svg?logo=homeassistant&logoColor=white) ![Version](https://img.shields.io/github/v/release/levonisyas/clockpro-card.svg?label=ClockPro%20Card&logo=homeassistant&logoColor=white&color=007ec6) ![Downloads](https://img.shields.io/github/downloads/levonisyas/clockpro-card/total.svg?label=Downloads&logo=homeassistant&logoColor=white&labelColor=555&color=5cb85c)
 
-
-<img src="https://raw.githubusercontent.com/levonisyas/clockpro-card/main/demo/demo.jpg" width="1200" alt="Overlay Pro Card">
+### Your Precision Time & Weather Display for Home Assistant *(Clock + Weather Card)*
 
 ---
 
@@ -14,7 +13,11 @@
 
 ---
 
-**A professional weather + clock card for Home Assistant Lovelace.**
+<img src="https://raw.githubusercontent.com/levonisyas/clockpro-card/main/demo/demo.jpg" width="1200" alt="Overlay Pro Card">
+
+---
+
+## A professional weather + clock card for Home Assistant Lovelace.
 Absolute positioning, customizable typography, SVG icon packs, and flexible layout — designed to be easy to use and powerful.
 
 👉 Works with any weather entity.
@@ -38,22 +41,60 @@ Absolute positioning, customizable typography, SVG icon packs, and flexible layo
 
 ## 🚀 Installation
 
-1. Put `clockpro-card.js` into your Home Assistant `/config/www/community/clockpro-card/`
-2. Optionally put your `icon-pack.js` in the same folder
-3. Add the card in Lovelace
+ClockPro Card can be installed in two ways:
 
-**URL examples:**
+---
+
+**📌 Method 1 — HACS Custom Repository (Recommended)**
+
+1. Go to **HACS → Frontend → Custom repositories**
+2. Add this repository:
+
+```
+https://github.com/levonisyas/clockpro-card
+```
+
+3. Select category: **Lovelace**
+4. Install **ClockPro Card**
+5. Restart Home Assistant
+6. Add the resource automatically (HACS usually handles this)
+
+After installation, the file will be available at:
 
 ```
 /local/community/clockpro-card/clockpro-card.js
+```
+
+If you use a custom icon pack, place it here:
+
+```
 /local/community/clockpro-card/icon-pack.js
 ```
 
-Then in your Lovelace resources (UI → Settings → Resources):
+---
+
+**📌 Method 2 — Manual Installation**
+
+1. Download `clockpro-card.js`  
+2. Place it into:
+
+```
+/config/www/community/clockpro-card/
+```
+
+3. (Optional) Add your `icon-pack.js` into the same folder
+4. Add the resource manually:
 
 ```yaml
 url: /local/community/clockpro-card/clockpro-card.js
 type: module
+```
+
+**File paths:**
+
+```
+/local/community/clockpro-card/clockpro-card.js
+/local/community/clockpro-card/icon-pack.js
 ```
 
 ---
@@ -217,16 +258,19 @@ static getStubConfig() {
 
 ---
 
-### 🎨 Pro Icon Pack (SVG Files)
+## 🎨 Pro Icon Pack (SVG Files)
 
 ClockPro supports a **file-based Pro Icon Pack**.
 
 This means:
 
-* You **do NOT** edit card JS
-* You **do NOT** embed SVG strings inside YAML
-* You simply drop your own `.svg` files into a folder
-* ClockPro will load them automatically via `icon-pack.js`
+* You **do NOT** edit card JS  
+* You **do NOT** embed SVG strings inside YAML  
+* You simply drop your own `.svg` files into a folder  
+* ClockPro will load them automatically via `icon-pack.js`  
+
+You can download the official SVG pack from the repository:  
+<https://github.com/levonisyas/clockpro-card/tree/main/dist/svg>
 
 ---
 
@@ -282,7 +326,7 @@ This becomes accessible as:
 * exceptional-night.svg
 * unknown-night.svg
 
-If night icons are missing, ClockPro will fallback to the closest day icon.
+**If night icons are missing, ClockPro will fallback to the closest day icon.**
 
 ---
 
@@ -352,3 +396,13 @@ If your weather provider doesn’t expose current temperature, ClockPro will fal
 * Make sure `icon-pack.js` is in the same folder as the card (or provide a full path).
 * If customizing icon pack, clear browser cache after editing.
 * For custom SVG sizes, use the `transform` block.
+
+---
+
+## 🤝 Enjoy ⭐ Support  
+
+I build these projects for **my own needs** and share them so others can benefit.  
+I don’t use donation links — so **please don’t buy me coffee** ☕  
+
+>If you enjoy this project, simply **⭐ star the repository**.  
+>Your feedback and contributions matter more than coffee.
