@@ -237,8 +237,8 @@
         pro_icon: false,
         // If pro_icon_pack does NOT start with "/", it will be loaded from the card's folder:
         // /local/community/clockpro-card/<pro_icon_pack>
-        pro_icon_pack: "icon-pack.js",
-        pro_icons_folder: "",
+        pro_icon_pack: "/local/community/clockpro-card/icon-pack.js",
+        pro_icons_folder: "your-folder-name", // relative to card file or absolute URL/path
 
         // Card sizing
         card: {
@@ -683,7 +683,7 @@
 // ============================================================================
 
 const overlayTitle = '  CLOCK[PRO]-CARD ';
-const overlayVersion = '  Version Faz.1    ';
+const overlayVersion = '  Version Faz.1.1    ';
 
 // Longest line width
 const overlayWidth = Math.max(overlayTitle.length, overlayVersion.length);
@@ -704,7 +704,7 @@ console.info(
     window.customCards.push({
       type: "clockpro-card",
       name: "Clock Pro Card",
-      preview: true,
+      preview: false,
       description: "Clock Pro Card — Time & Weather Visualization Engine",
     });
   }

@@ -1,7 +1,8 @@
 
 # Clock Pro Card — Time & Weather Visualization Engine
 
-![HACS Custom](https://img.shields.io/badge/HACS-Custom-41BDF5.svg?logo=homeassistant&logoColor=white) ![License MIT](https://img.shields.io/badge/License-MIT-97CA00.svg?logo=homeassistant&logoColor=white) ![Version](https://img.shields.io/github/v/release/levonisyas/clockpro-card.svg?label=ClockPro%20Card&logo=homeassistant&logoColor=white&color=007ec6) ![Downloads](https://img.shields.io/github/downloads/levonisyas/clockpro-card/total.svg?label=Downloads&logo=homeassistant&logoColor=white&labelColor=555&color=5cb85c)
+![HACS Default](https://img.shields.io/badge/HACS-Default-fe7d37.svg?logo=homeassistant&logoColor=white) ![License MIT](https://img.shields.io/badge/License-MIT-97CA00.svg?logo=homeassistant&logoColor=white) ![Version](https://img.shields.io/github/v/release/levonisyas/clockpro-card?label=ClockPro%20Card&logo=homeassistant&logoColor=white&color=007ec6&style=flat) ![Downloads](https://img.shields.io/github/downloads/levonisyas/clockpro-card/total.svg?label=Downloads&logo=homeassistant&logoColor=white&labelColor=555&color=5cb85c&style=flat)
+
 
 ### Your Precision Time & Weather Display for Home Assistant *(Clock + Weather Card)*
 
@@ -45,31 +46,16 @@ ClockPro Card can be installed in two ways:
 
 ---
 
-**📌 Method 1 — HACS Custom Repository (Recommended)**
+### Method 1: HACS (Recommended)
 
-1. Go to **HACS → Frontend → Custom repositories**
-2. Add this repository:
+1. Open **HACS** in Home Assistant.
+2. Search for: **Clock Pro Card**.
+3. Select the repository and click **Download**.
+4. **Restart Home Assistant.**
 
-```
-https://github.com/levonisyas/clockpro-card
-```
+After installation, HACS will automatically register the card as a Lovelace resource.
 
-3. Select category: **Lovelace**
-4. Install **ClockPro Card**
-5. Restart Home Assistant
-6. Add the resource automatically (HACS usually handles this)
-
-After installation, the file will be available at:
-
-```
-/local/community/clockpro-card/clockpro-card.js
-```
-
-If you use a custom icon pack, place it here:
-
-```
-/local/community/clockpro-card/icon-pack.js
-```
+---
 
 ---
 
@@ -110,8 +96,9 @@ location_entity: zone.home
 sun_entity: sun.sun
 
 pro_icon: true
-pro_icon_pack: icon-pack.js
-pro_icons_folder: your_pack
+pro_icon_pack: /local/community/clockpro-card/icon-pack.js,
+pro_icons_folder: your-folder-name, 
+
 
 card:
   height: 220
