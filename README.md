@@ -85,6 +85,123 @@ type: module
 
 ---
 
+### Notes
+
+* No custom repository setup is required, Clock Pro is in the official **HACS Default Repository Store**.  
+* Manual installation is only recommended for advanced or offline setups.  
+
+---
+
+## 🧩 Visual Editor (YAML-Free)
+
+Clock Pro Card includes a built-in **Visual Editor** for Home Assistant Lovelace.
+The editor allows you to configure the card **without writing any YAML**, while still generating a configuration that is **100% equivalent to YAML**.
+
+> **Visual Editor is not a simplified mode.
+> It is a full visual representation of the YAML configuration.**
+
+---
+
+### ✨ Design Philosophy
+
+The Visual Editor follows these core principles:
+
+* **Full YAML-Free**: every option can be configured visually
+* **YAML-Equivalent**: no UI-only or hidden settings
+* **One-to-one mapping** between editor controls and YAML keys
+* **No disabled / magic defaults**
+* **Consistent positioning logic** across all elements
+
+If a setting exists in YAML, it exists in the Visual Editor — and vice versa.
+
+---
+
+### 🧭 Editor Structure
+
+The editor is organized into four main sections:
+
+* **General / Card & Background**
+  Global card settings, entity selection, background and icon options
+
+* **Time / Date / Day**
+  Position, font and color settings for time, date and day labels
+
+* **Weather Icon / Details / Location**
+  Weather icon placement, weather text and location label configuration
+
+* **Forecast**
+  Optional multi-day weather forecast settings
+
+Each section contains **only related settings**, keeping the editor predictable and easy to navigate.
+
+---
+
+### 📍 Positioning System
+
+All visual elements use the **same positioning model**:
+
+* Vertical: `top` / `bottom`
+* Horizontal: `left` / `right`
+* Value: number (px) or percentage
+
+This ensures:
+
+* Consistent behavior across all elements
+* No special cases or exceptions
+* Identical results in Visual Editor and YAML
+
+---
+
+### 🧮 Grouped Settings
+
+Related settings are grouped visually to reflect how they work together.
+
+Examples:
+
+* Font settings: `size + weight + letter_spacing`
+* Transform settings: `x + y + scale`
+
+These settings are displayed **on a single row** in the editor to improve clarity and reduce visual noise.
+
+---
+
+### ☁ Entity Selection
+
+The Visual Editor uses Home Assistant’s **native entity selector** for:
+
+* `weather_entity`
+* `location_entity`
+* `sun_entity`
+
+Entities are selected directly from Home Assistant — no manual typing required.
+
+---
+
+### 🧠 YAML Compatibility
+
+Configurations created with the Visual Editor:
+
+* Use the **same keys and structure** as YAML
+* Can be freely edited in YAML after creation
+* Can be switched between **Visual Editor ⇄ YAML** at any time
+
+Using the Visual Editor does **not lock you out of YAML** — it simply makes configuration faster and safer.
+
+---
+
+### 🎯 When to Use the Visual Editor
+
+The Visual Editor is ideal for:
+
+* Initial setup
+* Layout and positioning adjustments
+* Font, spacing and color tuning
+* Rapid visual experimentation
+
+Advanced users can still rely entirely on YAML if preferred.
+
+---
+
 ## 🛠 Usage — Full Example YAML
 
 Copy & paste this full config, then edit values to taste:
@@ -104,7 +221,7 @@ card:
   height: 220
 
 background:
-  mode: transparent
+  mode: transparent / color
   color: "rgba(0,0,0,0)"
   radius: 0
   padding: 0
@@ -178,7 +295,85 @@ elements:
       weight: 800
     letter_spacing: -0.2
     color: "#111111"
+
+  forecast:
+    show: true        # true / false
+    days: 5           # 1–7
+    pos:
+      left: 16
+      bottom: 8
+    gap: 18
+
+    day:
+      font:
+        size: 14
+        weight: 700
+      letter_spacing: 0.4
+      color: "#111111"
+      uppercase: true
+
+    icon:
+      size: 34
+      color: "#111111"
+
+    temp:
+      font:
+        size: 16
+        weight: 700
+      letter_spacing: -0.2
+      color: "#111111"
+      format: maxmin   # maxmin | max
+
 ```
+
+---
+
+## 📅 5-Day Weather Forecast (Optional)
+
+ClockPro now supports an optional **5-day weather forecast strip**, rendered as a native element using the same positioning engine as the rest of the card.
+
+The forecast is designed to be:
+
+* Minimal
+* Readable at a glance
+* Fully configurable via YAML
+* Non-intrusive to the main clock layout
+
+👉 Forecast uses the **same `weather_entity`** — no extra sensors or helpers required.
+👉 Automatically falls back if forecast data is unavailable.
+
+### ✨ What it shows
+
+* Short weekday label (MON, TUE, etc.)
+* Weather icon (MDI or Pro SVG pack)
+* Daily temperature (max or max/min)
+
+---
+
+### 🧩 Forecast Configuration
+
+The forecast is enabled via the `elements.forecast` block.
+
+---
+
+### ℹ️ Notes
+
+* `days` can be set between **1 and 7**
+* Forecast is rendered as a **single horizontal row**
+* Uses daily forecast data provided by the weather entity
+* Night/day icon variants are automatically handled when available
+* If forecast data is missing, the element is simply not rendered
+
+---
+
+### 🎯 Design Philosophy
+
+The forecast follows ClockPro’s core idea:
+
+> **Everything is an element.**
+> Absolute positioning, predictable layout, no magic.
+
+This means you can place the forecast anywhere — bottom strip, corner, or alongside other elements — without affecting the rest of the card.
 
 ---
 
