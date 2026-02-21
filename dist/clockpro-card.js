@@ -32,20 +32,20 @@
         },
         colors: {
           first_digit: "#d64040",
-          rest: "rgba(255,255,255,0.95)",
+          rest: "rgba(0, 0, 0, 0.95)",
         },
       },
       date: {
         pos: { left: 16, bottom: 50 },
         font: { size: 28, weight: 600 },
         letter_spacing: null,
-        color: "rgba(255,255,255,0.92)",
+        color: "rgba(0, 0, 0, 0.92)",
       },
       day: {
         pos: { left: 16, bottom: 14 },
         font: { size: 36, weight: 700 },
         letter_spacing: null,
-        color: "rgba(255,255,255,0.92)",
+        color: "rgba(0, 0, 0, 0.92)",
       },
       icon: {
         pos: { right: 18, top: 20 },
@@ -62,13 +62,13 @@
         pos: { right: 16, bottom: 44 },
         font: { size: 22, weight: 600 },
         letter_spacing: null,
-        color: "rgba(255,255,255,0.92)",
+        color: "rgba(0, 0, 0, 0.92)",
       },
       location: {
         pos: { right: 16, bottom: 14 },
         font: { size: 26, weight: 700 },
         letter_spacing: null,
-        color: "rgba(255,255,255,0.92)",
+        color: "rgba(0, 0, 0, 0.92)",
       },
 
       // 5-day forecast (uses existing weather_entity attributes.forecast)
@@ -82,19 +82,19 @@
         day: {
           font: { size: 14, weight: 700 },
           letter_spacing: 0.4,
-          color: "rgba(255,255,255,0.92)",
+          color: "rgba(0, 0, 0, 0.92)",
           uppercase: true,
         },
 
         icon: {
           size: 34,
-          color: "rgba(255,255,255,0.95)",
+          color: "rgba(0, 0, 0, 0.95)",
         },
 
         temp: {
           font: { size: 16, weight: 700 },
           letter_spacing: -0.2,
-          color: "rgba(255,255,255,0.92)",
+          color: "rgba(0, 0, 0, 0.92)",
           format: "maxmin", // maxmin | max
         },
       },
