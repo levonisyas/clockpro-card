@@ -34,7 +34,8 @@ Absolute positioning, customizable typography, SVG icon packs, and flexible layo
 * 🌦 Weather icon + condition + temperature
 * 📍 Location label
 * 🎨 Fully positionable UI elements
-* 🎨 Optional **colorful SVG icon pack**
+* 🎨 Optional **colorful SVG icon pack**  
+* ⛅ Black & White Cloud SVG Pack (dual‑tone icons)  
 * 🧠 Smart defaults + full stub config for UI add
 * 📐 Configurable card height
 
