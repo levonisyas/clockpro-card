@@ -1336,20 +1336,35 @@ console.info(
             <div class="title">General / Card & Background</div>
           </div>
 
-          <div class="row">
-            <ha-form
+          <div class="row" style="margin: 2px 0;">
+            <ha-selector
               .hass=${this.hass}
-              .data=${{
-                weather_entity: this._get("weather_entity", "weather.home"),
-                location_entity: this._get("location_entity", "zone.home"),
-                sun_entity: this._get("sun_entity", "sun.sun"),
-              }}
-              .schema=${this._generalSchema()}
-              @value-changed=${(e) => this._onGeneralFormChanged(e)}
-            ></ha-form>
+              .selector=${{ entity: { domain: "weather" } }}
+              .value=${this._get("weather_entity", "weather.home")}
+              @value-changed=${(e) => this._set("weather_entity", e.detail.value)}
+              label="weather_entity"
+            ></ha-selector>
+          </div>
+          <div class="row" style="margin: 2px 0;">          
+            <ha-selector
+              .hass=${this.hass}
+              .selector=${{ entity: {} }}
+              .value=${this._get("location_entity", "zone.home")}
+              @value-changed=${(e) => this._set("location_entity", e.detail.value)}
+              label="location_entity"
+            ></ha-selector>
+          </div>
+          <div class="row" style="margin: 2px 0;">          
+            <ha-selector
+              .hass=${this.hass}
+              .selector=${{ entity: { domain: "sun" } }}
+              .value=${this._get("sun_entity", "sun.sun")}
+              @value-changed=${(e) => this._set("sun_entity", e.detail.value)}
+              label="sun_entity"
+            ></ha-selector>
           </div>
 
-          <div class="row align-top">
+          <div class="row">
             <ha-formfield label="pro_icon">
               <ha-switch
                 .checked=${this._get("pro_icon", false) === true}
