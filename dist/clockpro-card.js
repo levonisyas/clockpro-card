@@ -935,7 +935,7 @@
 // ============================================================================
 
 const overlayTitle = '  CLOCK[PRO]-CARD ';
-const overlayVersion = '  Version Faz.1.1    ';
+const overlayVersion = '  Version Faz.2    ';
 
 // Longest line width
 const overlayWidth = Math.max(overlayTitle.length, overlayVersion.length);
