@@ -14,7 +14,7 @@
 
 ---
 
-<img src="https://raw.githubusercontent.com/levonisyas/clockpro-card/main/demo/demo.jpg" width="1200" alt="Overlay Pro Card">
+<img src="https://raw.githubusercontent.com/levonisyas/clockpro-card/main/demo/demo.jpg" width="1200" alt="Clock Pro Card">
 
 ---
 
