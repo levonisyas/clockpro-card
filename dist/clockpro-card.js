@@ -221,6 +221,32 @@
       // keep only our known element keys; user asked names fixed
       merged.elements = deepMerge(DEFAULT_CONFIG.elements, (userConfig.elements || {}));
 
+      // IMPORTANT:
+      // deepMerge keeps DEFAULT pos keys that user didn't provide (e.g., default left remains when user sets right).
+      // Normalize mutually-exclusive axes deterministically based on what userConfig explicitly sets.
+      if (merged.elements && typeof merged.elements === "object" && userConfig && typeof userConfig === "object") {
+        for (const elKey of Object.keys(merged.elements)) {
+          const el = merged.elements[elKey];
+          if (!el || typeof el !== "object") continue;
+
+          const pos = el.pos;
+          if (!pos || typeof pos !== "object") continue;
+
+          const userPos = userConfig?.elements?.[elKey]?.pos;
+          if (!userPos || typeof userPos !== "object") continue;
+
+          // X axis: if user set right (and did not set left), drop left
+          if (userPos.right !== undefined && userPos.left === undefined) delete pos.left;
+          // X axis: if user set left (and did not set right), drop right
+          if (userPos.left !== undefined && userPos.right === undefined) delete pos.right;
+
+          // Y axis: if user set bottom (and did not set top), drop top
+          if (userPos.bottom !== undefined && userPos.top === undefined) delete pos.top;
+          // Y axis: if user set top (and did not set bottom), drop bottom
+          if (userPos.top !== undefined && userPos.bottom === undefined) delete pos.bottom;
+        }
+      }
+
       const nextPack = merged.pro_icon_pack || "";
       const nextProIcon = merged.pro_icon === true;
 
@@ -935,7 +961,7 @@
 // ============================================================================
 
 const overlayTitle = '  CLOCK[PRO]-CARD ';
-const overlayVersion = '  Version Faz.2    ';
+const overlayVersion = '  Version Faz.2.1    ';
 
 // Longest line width
 const overlayWidth = Math.max(overlayTitle.length, overlayVersion.length);
