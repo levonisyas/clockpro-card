@@ -142,7 +142,19 @@
     return [`letter-spacing:${toPx(v)};`];
   }
 
-  function conditionLabel(condition) {
+  function conditionLabel(condition, hass, stateObj) {
+    // Prefer the translation Home Assistant already provides, so the label
+    // follows the user's language instead of always being English.
+    // Falls back to the built-in labels below when unavailable.
+    if (hass && stateObj && typeof hass.formatEntityState === "function") {
+      try {
+        const localized = hass.formatEntityState(stateObj);
+        if (localized) return localized;
+      } catch (err) {
+        // ignore and use the fallback below
+      }
+    }
+
     const map = {
       "clear-night": "Clear",
       clear: "Clear",
@@ -614,7 +626,7 @@
         iconCondition = nightMap[c] || `${c}-night`;
       }
 
-      const condText = conditionLabel(rawCondition);
+      const condText = conditionLabel(rawCondition, hass, wEnt);
 
       // pro icon pack (optional)
       const useProIcon = cfg.pro_icon === true && String(cfg.pro_icon_pack || "").trim();
